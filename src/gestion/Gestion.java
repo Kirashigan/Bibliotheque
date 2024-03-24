@@ -157,7 +157,6 @@ public class Gestion {
         Exemplaire ex = new Exemplaire(mat,etat,louv.get(choix-1));
         lex.add(ex);
         System.out.println("exemplaire créé");
-        //TODO attribuer rayon
         int attributionRayon = Utilitaire.choixListe(lrayon);
         ex.setRayon(lrayon.get(attributionRayon-1));
     }
@@ -216,21 +215,39 @@ public class Gestion {
                 do{
                     choix=Utilitaire.choixListe(langues);
                     if(choix==langues.size())break;
-                    if(o.getLangue().equals(choix))break;
-                    ((DVD)o).getAutresLangues().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
+                    if(o.getLangue().equals(choix)){
+                        System.out.println("Cet langue est déjà dans la liste de sous titre");
+                        break;
+                    }
+                    ((DVD)o).getAutresLangues().add(langues.get(choix-1));
                 }while(true);
                 System.out.println("sous-titres");
                 do{
                     choix=Utilitaire.choixListe(langues);
                     if(choix==langues.size())break;
-                    else((DVD)o).getSousTitres().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set
+                    if (!((DVD)o).getSousTitres().add(langues.get(choix-1))){
+                        System.out.println("Cette langue de sous titre existe déjà");
+                    }
+                    else((DVD)o).getSousTitres().add(langues.get(choix-1));
                 }while(true);
                 ;break;
         }
         louv.add(o);
         System.out.println("ouvrage créé");
-        //TODO ajouter 1 auteur à la liste des auteurs
-        gestAuteurs();
+        boolean flag = true;
+        String nom, prenom;
+        System.out.println("Entrez le nom de l'auteur: ");
+        nom = sc.nextLine();
+        System.out.println("Entrez le prenom de l'auteur: ");
+        prenom = sc.nextLine();
+        for(Auteur a : laut){
+            if(nom.equalsIgnoreCase(a.getNom()) && prenom.equalsIgnoreCase(a.getPrenom())){
+                flag = false;
+            }
+        }
+        if (!flag) {
+            gestAuteurs();
+        }else System.out.println("Cet auteur est déjà répertorier dans nos listes");
     }
 
     private void gestAuteurs() {

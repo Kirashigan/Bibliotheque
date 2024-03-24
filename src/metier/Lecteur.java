@@ -115,24 +115,27 @@ public class Lecteur {
         return Objects.hash(numlecteur);
     }
 
-    public List<metier.Exemplaire> listerExemplairesEnLocation(){
-        //TODO lister exemplaires en location lecteur
-        //Regarder les dates de retours
-        int i = 0;
-        for(Location l : lloc){
-            i++;
-            System.out.println("Location: "+l.getExemplaire().enLocation());
-            System.out.println("Date de retour: "+ l.getExemplaire().getLloc().get(i).getDateLocation()); // verif
+    public List<Exemplaire> listerExemplairesEnLocation() {
+        List<Exemplaire> exemplairesEnLocation = new ArrayList<>();
+        LocalDate dateActuelle = LocalDate.now(); // Date actuelle
+
+        for (Location location : lloc) {
+            if (location.getDateLocation().isBefore(dateActuelle) && location.getDateLocation().isAfter(dateActuelle)) {
+                exemplairesEnLocation.add(location.getExemplaire());
+            }
         }
-        return null;
+        return exemplairesEnLocation;
     }
 
-    public List< metier.Exemplaire> listerExemplairesEnLoues(){
-        //TODO lister exemplaires loues lecteur
-        //Lister les exemplaires
-        for(Location l : lloc){
-            System.out.println(l.getExemplaire().enLocation());
+    public List<Exemplaire> listerExemplairesEnLoues() {
+        List<Exemplaire> exemplairesLoues = new ArrayList<>();
+        LocalDate dateActuelle = LocalDate.now(); // Date actuelle
+
+        for (Location location : lloc) {
+            if (location.getDateLocation().isBefore(dateActuelle)) {
+                exemplairesLoues.add(location.getExemplaire());
+            }
         }
-        return null;
+        return exemplairesLoues;
     }
 }
