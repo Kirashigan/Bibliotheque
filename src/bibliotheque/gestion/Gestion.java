@@ -115,23 +115,58 @@ public class Gestion {
     }
 
     private void gestRestitution() {
-        //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
-
-
+        int choix, i = 0;
+        Exemplaire exRestitue;
+        for (Exemplaire e : lex) {
+            i++;
+            System.out.println(i + ": " + e.enLocation());
+        }
+        System.out.println("Votre choix: ");
+        choix = sc.nextInt() - 1;
+        lex.get(choix).modifierEtat("Libre");
+        exRestitue = lex.get(choix);
+        for (Location l : lloc) {
+            if (l.getExemplaire().equals(exRestitue)) {
+                l.setDateRestitution(LocalDate.now());
+                System.out.println("Le livre " + lex.get(choix).getOuvrage().getTitre() + " a été rendu le " + LocalDate.now() + " à " + LocalTime.now());
+            }
+        }
     }
 
     private void gestLocations() {
-        int choix;
-        //TODO ne lister que les exemplaires libres et les trier par matricule
-        choix = choixListe(lex);
-        if (lex.get(choix).enLocation()) {
-            System.out.println("exemplaire en location");
-            return;
+        int choix, i = 0;
+        List<String> matriculetrié = new ArrayList<>();
+        for (Exemplaire e : lex) {
+            matriculetrié.add(e.getMatricule());
         }
-        Exemplaire ex = lex.get(choix - 1);
-        choix = choixListe(llect);
-        Lecteur lec = llect.get(choix - 1);
-        lloc.add(new Location(lec, ex));
+        Collections.sort(matriculetrié);
+        for (Exemplaire e : lex) {
+            e.setMatricule(matriculetrié.get(i));
+            i++;
+        }
+        i = 1;
+        for (Exemplaire e : lex) {
+            if (!e.enLocation()) {
+                System.out.println(i + ": " + e.getMatricule());
+                i++;
+            }
+        }
+        System.out.println("Matricule choisit: ");
+        String c = sc.next();
+        for(Exemplaire e : lex){
+            if(e.getMatricule().equalsIgnoreCase(c)){
+
+                choix = choixListe(lex);
+                if (lex.get(choix).enLocation()) {
+                    System.out.println("exemplaire en location");
+                    return;
+                }
+                Exemplaire ex = lex.get(choix - 1);
+                choix = choixListe(llect);
+                Lecteur lec = llect.get(choix - 1);
+                lloc.add(new Location(lec, ex));
+            }else System.out.println("Matricule inconnu");
+        }
     }
 
     private void gestLecteurs() {
@@ -185,7 +220,7 @@ public class Gestion {
                             System.out.println(i + ": " + TitreTrier);
                             System.out.println("Entrez le numéro de l'ouvrage que vous voulez ajouter: ");
                             int c2 = sc.nextInt() - 1;
-                            if(e.getOuvrage().getTitre().equalsIgnoreCase(TitreTrier.get(c2))){
+                            if (e.getOuvrage().getTitre().equalsIgnoreCase(TitreTrier.get(c2))) {
                                 r.addExemplaire(e);
                             }
                             i++;
@@ -201,7 +236,7 @@ public class Gestion {
     }
 
     private void gestExemplaires() {
-        int i=0;
+        int i = 0;
         List<String> codetrier = new ArrayList<>();
         System.out.println("matricule ");
         String mat = sc.next();
@@ -214,11 +249,11 @@ public class Gestion {
         System.out.println("exemplaire créé");
         choix = choixListe(lrayon);
         ex.setRayon(lrayon.get(choix - 1));
-        for(Rayon r : lrayon){
+        for (Rayon r : lrayon) {
             codetrier.add(r.getCodeRayon());
         }
         Collections.sort(codetrier);
-        for(Rayon r : lrayon){
+        for (Rayon r : lrayon) {
             r.setCodeRayon(codetrier.get(i));
             i++;
         }
