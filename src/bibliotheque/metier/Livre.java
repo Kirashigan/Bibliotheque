@@ -1,4 +1,4 @@
-package metier;
+package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -81,6 +81,6 @@ public class Livre extends Ouvrage{
                 ", nbrePages=" + nbrePages +
                 ", tl=" + tl +
                 ", resume='" + resume + '\'' +
-                "} " + super.toString();
+                "} " ;
     }
 }

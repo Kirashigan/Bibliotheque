@@ -1,4 +1,4 @@
-package metier;
+package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -7,10 +7,10 @@ import java.util.Objects;
 public class Location {
     private LocalDate dateLocation;
     private LocalDate dateRestitution;
-    private metier.Lecteur loueur;
-    private metier.Exemplaire exemplaire;
+    private Lecteur loueur;
+    private Exemplaire exemplaire;
 
-    public Location(LocalDate dateLocation, LocalDate dateRestitution, metier.Lecteur loueur, metier.Exemplaire exemplaire) {
+    public Location(LocalDate dateLocation, LocalDate dateRestitution, Lecteur loueur, Exemplaire exemplaire) {
         this.dateLocation = dateLocation;
         this.dateRestitution = dateRestitution;
         this.loueur = loueur;
@@ -19,7 +19,7 @@ public class Location {
         this.exemplaire.getLloc().add(this);
     }
 
-    public Location(metier.Lecteur loueur, metier.Exemplaire exemplaire) {
+    public Location(Lecteur loueur, Exemplaire exemplaire) {
         this.loueur = loueur;
         this.exemplaire = exemplaire;
         this.dateLocation=LocalDate.now();
@@ -41,19 +41,19 @@ public class Location {
         this.dateRestitution = dateRestitution;
     }
 
-    public metier.Lecteur getLoueur() {
+    public Lecteur getLoueur() {
         return loueur;
     }
 
-    public void setLoueur(metier.Lecteur loueur) {
+    public void setLoueur(Lecteur loueur) {
         this.loueur = loueur;
     }
 
-    public metier.Exemplaire getExemplaire() {
+    public Exemplaire getExemplaire() {
         return exemplaire;
     }
 
-    public void setExemplaire(metier.Exemplaire exemplaire) {
+    public void setExemplaire(Exemplaire exemplaire) {
         this.exemplaire = exemplaire;
     }
 
@@ -81,17 +81,17 @@ public class Location {
     }
 
     public double calculerAmende(){
-        if(dateRestitution!=null){
-            LocalDate dateLim = dateLocation.plusDays(exemplaire.getOuvrage().njlocmax());
-            if(dateRestitution.isAfter(dateLim)){
-                int njretard = (int)ChronoUnit.DAYS.between(dateLim, dateRestitution);
-                return exemplaire.getOuvrage().amendeRetard(njretard);
-            }
-        }
+         if(dateRestitution!=null){
+           LocalDate dateLim = dateLocation.plusDays(exemplaire.getOuvrage().njlocmax());
+           if(dateRestitution.isAfter(dateLim)){
+               int njretard = (int)ChronoUnit.DAYS.between(dateLim, dateRestitution);
+               return exemplaire.getOuvrage().amendeRetard(njretard);
+           }
+       }
         return 0;
     }
 
     public void enregistrerRetour(){
-        if(dateRestitution==null) dateRestitution=LocalDate.now();//test sur nul pour éviter d'enregistrer retour 2 fois
+       if(dateRestitution==null) dateRestitution=LocalDate.now();//test sur nul pour éviter d'enregistrer retour 2 fois
     }
 }

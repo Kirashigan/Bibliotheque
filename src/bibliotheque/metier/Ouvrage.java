@@ -1,4 +1,4 @@
-package metier;
+package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,9 +13,10 @@ public abstract class Ouvrage {
     protected String langue;
     protected String genre;
 
-    protected List<metier.Auteur> lauteurs=new ArrayList<>();
-    protected List<metier.Exemplaire> lex = new ArrayList<>();
-
+    protected List<Auteur> lauteurs=new ArrayList<>();
+    //TODO remplacer par set
+    protected List<Exemplaire> lex = new ArrayList<>();
+    //TODO remplacer par set
 
     public Ouvrage(String titre, int ageMin, LocalDate dateParution, TypeOuvrage to, double prixLocation, String langue, String genre) {
         this.titre = titre;
@@ -83,19 +84,19 @@ public abstract class Ouvrage {
         this.genre = genre;
     }
 
-    public List<metier.Auteur> getLauteurs() {
+    public List<Auteur> getLauteurs() {
         return lauteurs;
     }
 
-    public void setLauteurs(List<metier.Auteur> lauteurs) {
+    public void setLauteurs(List<Auteur> lauteurs) {
         this.lauteurs = lauteurs;
     }
 
-    public List<metier.Exemplaire> getLex() {
+    public List<Exemplaire> getLex() {
         return lex;
     }
 
-    public void setLex(List<metier.Exemplaire> lex) {
+    public void setLex(List<Exemplaire> lex) {
         this.lex = lex;
     }
 
@@ -116,31 +117,31 @@ public abstract class Ouvrage {
                 ", genre='" + genre + '\'' +
                 '}';
     }
-    public void addAuteur(metier.Auteur a ){
+    public void addAuteur(Auteur a ){
         lauteurs.add(a);
         a.getLouvrage().add(this);
     }
 
-    public void remove(metier.Auteur a){
+    public void remove(Auteur a){
         lauteurs.remove(a);
         a.getLouvrage().remove(this);
     }
-    public void addExemplaire(metier.Exemplaire e){
+    public void addExemplaire(Exemplaire e){
         lex.add(e);
         e.setOuvrage(this);
     }
 
-    public void remove(metier.Exemplaire e){
+    public void remove(Exemplaire e){
         lex.remove(e);
         e.setOuvrage(null);
     }
-    public List<metier.Exemplaire>listerExemplaires(){
+    public List<Exemplaire>listerExemplaires(){
         return lex;
     }
 
-    public List<metier.Exemplaire>listerExemplaires(boolean enLocation){
-        List<metier.Exemplaire> lex2 = new ArrayList<>();
-        for(metier.Exemplaire ex : lex){
+    public List<Exemplaire>listerExemplaires(boolean enLocation){
+        List<Exemplaire> lex2 = new ArrayList<>();
+        for(Exemplaire ex : lex){
             if(ex.enLocation()==enLocation) lex2.add(ex);
         }
         return lex2;

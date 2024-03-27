@@ -1,4 +1,4 @@
-package metier;
+package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -57,7 +57,7 @@ public class Exemplaire {
         this.descriptionEtat = descriptionEtat;
     }
 
-    public Ouvrage getOuvrage() {
+     public Ouvrage getOuvrage() {
         return ouvrage;
     }
 
@@ -96,7 +96,7 @@ public class Exemplaire {
     }
 
     public void modifierEtat(String etat){
-        setDescriptionEtat(etat);
+       setDescriptionEtat(etat);
     }
 
     public Lecteur lecteurActuel(){

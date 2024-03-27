@@ -1,4 +1,4 @@
-package metier;
+package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -115,27 +115,20 @@ public class Lecteur {
         return Objects.hash(numlecteur);
     }
 
-    public List<Exemplaire> listerExemplairesEnLocation() {
-        List<Exemplaire> exemplairesEnLocation = new ArrayList<>();
-        LocalDate dateActuelle = LocalDate.now(); // Date actuelle
-
-        for (Location location : lloc) {
-            if (location.getDateLocation().isBefore(dateActuelle) && location.getDateLocation().isAfter(dateActuelle)) {
-                exemplairesEnLocation.add(location.getExemplaire());
-            }
+    public List<Exemplaire> listerExemplairesEnLocation(){
+        List<Exemplaire> lex = new ArrayList<>();
+        for(Location loc : lloc){
+            if(loc.getDateRestitution()!=null)lex.add(loc.getExemplaire());
         }
-        return exemplairesEnLocation;
+        return lex;
     }
 
-    public List<Exemplaire> listerExemplairesEnLoues() {
-        List<Exemplaire> exemplairesLoues = new ArrayList<>();
-        LocalDate dateActuelle = LocalDate.now(); // Date actuelle
-
-        for (Location location : lloc) {
-            if (location.getDateLocation().isBefore(dateActuelle)) {
-                exemplairesLoues.add(location.getExemplaire());
-            }
+    public List<Exemplaire> listerExemplairesLoues(){
+        List<Exemplaire> lex = new ArrayList<>();
+        for(Location loc : lloc){
+            lex.add(loc.getExemplaire());
+            //TODO empêcher doublon si exemplaire loué plusieurs fois par même lecteur
         }
-        return exemplairesLoues;
+       return lex;
     }
 }

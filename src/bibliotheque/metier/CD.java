@@ -1,4 +1,4 @@
-package metier;
+package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -69,6 +69,6 @@ public class CD extends Ouvrage{
                 "code=" + code +
                 ", nbrePlages=" + nbrePlages +
                 ", dureeTotale='" + dureeTotale + '\'' +
-                "} " + super.toString();
+                "} " ;
     }
 }

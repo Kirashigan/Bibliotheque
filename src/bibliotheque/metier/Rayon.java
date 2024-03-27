@@ -1,4 +1,4 @@
-package metier;
+package bibliotheque.metier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,8 @@ import java.util.Objects;
 public class Rayon {
     private String codeRayon;
     private String genre;
-    private List<metier.Exemplaire> lex = new ArrayList<>();
+    private List<Exemplaire> lex = new ArrayList<>();
+    //TODO remplacer par set
 
     public Rayon(String codeRayon, String genre) {
         this.codeRayon = codeRayon;
@@ -34,12 +35,12 @@ public class Rayon {
                 ", genre='" + genre + '\'' +
                 '}';
     }
-    public void addExemplaire(metier.Exemplaire e){
+    public void addExemplaire(Exemplaire e){
         lex.add(e);
         e.setRayon(this);
     }
 
-    public void remove(metier.Exemplaire e){
+    public void remove(Exemplaire e){
         lex.remove(e);
         e.setRayon(null);
     }
@@ -59,15 +60,15 @@ public class Rayon {
         this.genre = genre;
     }
 
-    public List<metier.Exemplaire> getLex() {
+    public List<Exemplaire> getLex() {
         return lex;
     }
 
-    public void setLex(List<metier.Exemplaire> lex) {
+    public void setLex(List<Exemplaire> lex) {
         this.lex = lex;
     }
 
-    public List<metier.Exemplaire>listerExemplaires(){
+    public List<Exemplaire>listerExemplaires(){
         return lex;
     }
 
