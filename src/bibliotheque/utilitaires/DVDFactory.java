@@ -5,9 +5,7 @@ import bibliotheque.metier.Ouvrage;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class DVDFactory extends OuvrageFactory{
     public Ouvrage addDetail(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre){
@@ -17,18 +15,26 @@ public class DVDFactory extends OuvrageFactory{
         byte nbreBonus= sc.nextByte();
         DVD dvd =new DVD(titre,ageMin,dateParution,prixLocation,langue,genre,code,dureeTotale,nbreBonus);
         System.out.println("autres langues");
-        List<String> langues = new ArrayList<>(Arrays.asList("anglais","français","italien","allemand","fin"));
+        Set<String> langues = new HashSet<>();
+        langues.add("anglais");
+        langues.add("français");
+        langues.add("allemand");
+        langues.add("fin");
         int choix;
         do{
-            choix=Utilitaire.choixListe(langues);
+            choix=Utilitaire.choixListe(Collections.singletonList(langues));
             if(choix==langues.size())break;
-            dvd.getAutresLangues().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
+            if(dvd.getAutresLangues().equals(choix))break;
+            for (String s : langues){
+                if(s.equalsIgnoreCase(String.valueOf(choix))) break;
+            }
+            dvd.getAutresLangues().add(String.valueOf(langues.equals(choix-1)));
         }while(true);
         System.out.println("sous-titres");
         do{
-            choix=Utilitaire.choixListe(langues);
+            choix=Utilitaire.choixListe(Collections.singletonList(langues));
             if(choix==langues.size())break;
-            dvd.getSousTitres().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set
+            dvd.getSousTitres().add(String.valueOf(langues.equals(choix-1)));
         }while(true);
         return dvd;
     }
