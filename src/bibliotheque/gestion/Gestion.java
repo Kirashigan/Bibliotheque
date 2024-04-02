@@ -153,8 +153,8 @@ public class Gestion {
         }
         System.out.println("Matricule choisit: ");
         String c = sc.next();
-        for(Exemplaire e : lex){
-            if(e.getMatricule().equalsIgnoreCase(c)){
+        for (Exemplaire e : lex) {
+            if (e.getMatricule().equalsIgnoreCase(c)) {
 
                 choix = choixListe(lex);
                 if (lex.get(choix).enLocation()) {
@@ -165,7 +165,7 @@ public class Gestion {
                 choix = choixListe(llect);
                 Lecteur lec = llect.get(choix - 1);
                 lloc.add(new Location(lec, ex));
-            }else System.out.println("Matricule inconnu");
+            } else System.out.println("Matricule inconnu");
         }
     }
 
@@ -346,9 +346,16 @@ public class Gestion {
         louv.add(o);
         System.out.println("ouvrage créé");
         choix = choixListe(laut);
-        o.addAuteur(laut.get(choix - 1));
-        //TODO attribuer auteurs par boucle, les auteur sont triés par ordre de nom et prénom,
-        // ne pas proposer un auteur déjà présent dans la liste des auteurs de cet ouvrage
+        if (!o.getLauteurs().contains(laut.get(choix-1))) {
+            o.addAuteur(laut.get(choix - 1));
+            System.out.println("Attribution de l'ouvrage");
+        }else System.out.println("Cet ouvrage est déjà attribué");
+    }
+
+    public static void main(String[] args) {
+        Gestion g = new Gestion();
+        g.populate();
+        g.menu();
     }
 
     private void gestAuteurs() {
@@ -362,17 +369,9 @@ public class Gestion {
         laut.add(a);
         System.out.println("écrivain créé");
         int choix = choixListe(louv);
-        a.addOuvrage(louv.get(choix - 1));
-        //TODO attribuer ouvrages par boucle
-        // les ouvrages sont triés par ordre de titre
-        // ne pas proposer un ouvrage déjà présent dans la liste des ouvrages de cet auteur
+        if(!a.getLouvrage().contains(louv.get(choix-1))&&a.getLouvrage().isEmpty()){
+            a.addOuvrage(louv.get(choix - 1));
+            System.out.println("Ajout");
+        }else System.out.println("Ouvrage déjà associé à cet auteur");
     }
-
-    public static void main(String[] args) {
-        Gestion g = new Gestion();
-        g.populate();
-        g.menu();
-    }
-
-
 }

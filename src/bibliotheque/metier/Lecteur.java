@@ -126,8 +126,11 @@ public class Lecteur {
     public List<Exemplaire> listerExemplairesLoues(){
         List<Exemplaire> lex = new ArrayList<>();
         for(Location loc : lloc){
-            lex.add(loc.getExemplaire());
-            //TODO empêcher doublon si exemplaire loué plusieurs fois par même lecteur
+            if (!loc.getExemplaire().enLocation()){
+                lex.add(loc.getExemplaire());
+                System.out.println("Exemplaire loué");
+            }
+            System.out.println("Cet exemplaire est déjà en location.");
         }
        return lex;
     }
