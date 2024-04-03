@@ -16,7 +16,9 @@ public abstract class Ouvrage {
     protected String genre;
 
     protected Set<Auteur> lauteurs=new HashSet<>();
+
     protected Set<Exemplaire> lex = new HashSet<>();
+
 
     public Ouvrage(String titre, int ageMin, LocalDate dateParution, TypeOuvrage to, double prixLocation, String langue, String genre) {
         this.titre = titre;
@@ -99,6 +101,7 @@ public abstract class Ouvrage {
     public void setLex(Set<Exemplaire> lex) {
         this.lex = lex;
     }
+
 
     public abstract double amendeRetard(int njours);
 

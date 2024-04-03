@@ -7,6 +7,7 @@ public class Rayon {
     private String genre;
     private Set<Exemplaire> lex = new HashSet<>();
 
+
     public Rayon(String codeRayon, String genre) {
         this.codeRayon = codeRayon;
         this.genre = genre;
@@ -65,7 +66,7 @@ public class Rayon {
         this.lex = lex;
     }
 
-    public Set<Exemplaire> listerExemplaires(){
+    public Set<Exemplaire>listerExemplaires(){
         return lex;
     }
 
