@@ -2,6 +2,7 @@ package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +14,6 @@ public class Lecteur {
     private String mail;
     private String tel;
 
-    private List<Location> lloc=new ArrayList<>();
 
     public Lecteur(int numlecteur, String nom, String prenom, LocalDate dn, String adresse, String mail, String tel) {
         this.numlecteur = numlecteur;
@@ -81,13 +81,7 @@ public class Lecteur {
         this.tel = tel;
     }
 
-    public List<Location> getLloc() {
-        return lloc;
-    }
 
-    public void setLloc(List<Location> lloc) {
-        this.lloc = lloc;
-    }
 
     @Override
     public String toString() {
@@ -117,21 +111,13 @@ public class Lecteur {
 
     public List<Exemplaire> listerExemplairesEnLocation(){
         List<Exemplaire> lex = new ArrayList<>();
-        for(Location loc : lloc){
-            if(loc.getDateRestitution()!=null)lex.add(loc.getExemplaire());
+        for(Exemplaire e : lex){
+            if((e.getOuvrage().lex.contains(e.getOuvrage().getTitre()))){
+                break;
+            }
         }
         return lex;
     }
 
-    public List<Exemplaire> listerExemplairesLoues(){
-        List<Exemplaire> lex = new ArrayList<>();
-        for(Location loc : lloc){
-            if (!loc.getExemplaire().enLocation()){
-                lex.add(loc.getExemplaire());
-                System.out.println("Exemplaire loué");
-            }
-            System.out.println("Cet exemplaire est déjà en location.");
-        }
-       return lex;
-    }
+
 }
