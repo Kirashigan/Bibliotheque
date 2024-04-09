@@ -20,7 +20,7 @@ public class Gestion {
     private List<Ouvrage> louv= new ArrayList<>();
     private List<Exemplaire> lex = new ArrayList<>();
     private List<Rayon> lrayon= new ArrayList<>();
-    private List<Location> lloc = new ArrayList<>();
+    public static final Map<Exemplaire, Lecteur> lloc = new HashMap<>();
 
 
     public void populate(){
@@ -102,7 +102,22 @@ public class Gestion {
     }
 
     private void gestRestitution() {
-        //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+        int choix, i = 0;
+        Exemplaire exRestitue;
+        for (Exemplaire e : lex) {
+            i++;
+            System.out.println(i + ": " + e.enLocation());
+        }
+        System.out.println("Votre choix: ");
+        choix = sc.nextInt() - 1;
+        lex.get(choix).modifierEtat("Libre");
+        exRestitue = lex.get(choix);
+        for (Location l : lloc) {
+            if (l.getExemplaire().equals(exRestitue)) {
+                l.setDateRestitution(LocalDate.now());
+                System.out.println("Le livre " + lex.get(choix).getOuvrage().getTitre() + " a été rendu le " + LocalDate.now() + " à " + LocalTime.now());
+            }
+        }
     }
 
     private void gestLocations() {

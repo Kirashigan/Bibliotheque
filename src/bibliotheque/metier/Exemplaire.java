@@ -77,14 +77,6 @@ public class Exemplaire {
         this.rayon.getLex().add(this);
     }
 
-    public List<Location> getLloc() {
-        return lloc;
-    }
-
-    public void setLloc(List<Location> lloc) {
-        this.lloc = lloc;
-    }
-
     @Override
     public String toString() {
         return "Exemplaire{" +
@@ -103,45 +95,12 @@ public class Exemplaire {
         if(enLocation()) return lloc.get(lloc.size()-1).getLoueur();
         return null;
     }
-    public List<Lecteur> lecteurs(){
-        List<Lecteur> ll = new ArrayList<>();
-        for(Location l : lloc){
-            if(ll.contains(l)) continue; //par la suite utiliser set
-            ll.add(l.getLoueur());
-        }
-        return null;
-    }
 
     public void envoiMailLecteurActuel(Mail mail){
         if(lecteurActuel()!=null) System.out.println("envoi de "+mail+ " à "+lecteurActuel().getMail());
         else System.out.println("aucune location en cours");
     }
-    public void envoiMailLecteurs(Mail mail){
-        List<Lecteur>ll=lecteurs();
-        if(ll.isEmpty()){
-            System.out.println("aucun lecteur enregistré");
-        }
-        else{
-            for(Lecteur l: ll){
-                System.out.println("envoi de "+mail+ " à "+l.getMail());
-            }
-        }
-    }
 
-    public boolean enRetard(){ //par retard on entend pas encore restitué et en retard
-        if(lloc.isEmpty()) return false;
-        Location l = lloc.get(lloc.size()-1); //la location en cours est la dernière  de la liste, sauf si elle est terminée
-        if(l.getDateRestitution()==null && l.getDateLocation().plusDays(ouvrage.njlocmax()).isAfter(LocalDate.now())) return true;
-        return false;
-    }
-
-    public int joursRetard(){
-        if(!enRetard()) return 0;
-        Location l = lloc.get(lloc.size()-1);//la location en cours est la dernière de la liste
-        LocalDate dateLim = l.getDateLocation().plusDays(ouvrage.njlocmax());
-        int njretard = (int)ChronoUnit.DAYS.between(dateLim, LocalDate.now());
-        return njretard;
-    }
 
 
     public boolean enLocation(){
