@@ -72,15 +72,9 @@ public class Gestion {
         Lecteur lec = new Lecteur(1,"Dupont","Jean",LocalDate.of(2000,1,4),"Mons","jean.dupont@mail.com","0458774411");
         llect.add(lec);
 
-        Location loc = new Location(LocalDate.of(2023,2,1),LocalDate.of(2023,3,1),lec,e);
-        lloc.add(loc);
-        loc.setDateRestitution(LocalDate.of(2023,2,4));
-
         lec = new Lecteur(1,"Durant","Aline",LocalDate.of(1980,10,10),"Binche","aline.durant@mail.com","045874444");
         llect.add(lec);
 
-        loc = new Location(LocalDate.of(2023,2,5),LocalDate.of(2023,3,5),lec,e);
-        lloc.add(loc);
     }
 
     private void menu() {
@@ -106,18 +100,11 @@ public class Gestion {
         Exemplaire exRestitue;
         for (Exemplaire e : lex) {
             i++;
-            System.out.println(i + ": " + e.enLocation());
         }
         System.out.println("Votre choix: ");
         choix = sc.nextInt() - 1;
         lex.get(choix).modifierEtat("Libre");
         exRestitue = lex.get(choix);
-        for (Location l : lloc) {
-            if (l.getExemplaire().equals(exRestitue)) {
-                l.setDateRestitution(LocalDate.now());
-                System.out.println("Le livre " + lex.get(choix).getOuvrage().getTitre() + " a été rendu le " + LocalDate.now() + " à " + LocalTime.now());
-            }
-        }
     }
 
     private void gestLocations() {
@@ -125,7 +112,6 @@ public class Gestion {
         List<Exemplaire> lex2 = new ArrayList<>(lex);
         Iterator<Exemplaire> itlex2 = lex2.iterator();
         while(itlex2.hasNext()){
-            if(itlex2.next().enLocation()) itlex2.remove();
         }
         lex2.sort(new ExemplaireMatriculeComparator());
         choix =choixListe(lex2);
@@ -134,7 +120,6 @@ public class Gestion {
         choix=choixListe(llect);
         if(choix==0)return;
         Lecteur lec = llect.get(choix-1);
-        lloc.add(new Location(lec,ex));
     }
 
     private void gestLecteurs() {

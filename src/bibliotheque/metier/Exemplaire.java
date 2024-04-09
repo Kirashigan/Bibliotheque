@@ -17,9 +17,6 @@ public class Exemplaire {
     private String etat;
 
 
-    private List<Location> lloc= new ArrayList<>();
-
-
     public Exemplaire(String matricule, String descriptionEtat,Ouvrage ouvrage){
         this.matricule = matricule;
         this.descriptionEtat=descriptionEtat;
@@ -89,25 +86,6 @@ public class Exemplaire {
 
     public void modifierEtat(String etat){
        setDescriptionEtat(etat);
-    }
-
-    public Lecteur lecteurActuel(){
-        if(enLocation()) return lloc.get(lloc.size()-1).getLoueur();
-        return null;
-    }
-
-    public void envoiMailLecteurActuel(Mail mail){
-        if(lecteurActuel()!=null) System.out.println("envoi de "+mail+ " à "+lecteurActuel().getMail());
-        else System.out.println("aucune location en cours");
-    }
-
-
-
-    public boolean enLocation(){
-        if(lloc.isEmpty()) return false;
-        Location l = lloc.get(lloc.size()-1);//la location en cours est la dernière de la liste
-        if(l.getDateRestitution()==null) return true;
-        return false;
     }
 
 
