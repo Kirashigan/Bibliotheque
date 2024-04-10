@@ -2,21 +2,25 @@ package bibliotheque.utilitaires;
 
 import bibliotheque.metier.DVD;
 import bibliotheque.metier.Ouvrage;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class DVDFactory extends OuvrageFactory{
-    public Ouvrage addDetail(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre){
+    protected long code;
+    protected LocalTime dureeTotale;
+    protected byte nbreBonus;
+
+    public Ouvrage create(){
+        super.base();
         System.out.println("code : ");
-        long code= sc.nextLong();
-        LocalTime dureeTotale=Utilitaire.lecTime();
-        byte nbreBonus= sc.nextByte();
+        code= sc.nextLong();
+        dureeTotale=Utilitaire.lecTime();
+        nbreBonus= sc.nextByte();
         DVD dvd =new DVD(titre,ageMin,dateParution,prixLocation,langue,genre,code,dureeTotale,nbreBonus);
         System.out.println("autres langues");
-        List<String> langues = new ArrayList<>(Arrays.asList("anglais","français","italien","allemand","fin"));
+        List<String> langues = Arrays.asList("anglais","français","italien","allemand","fin");
         int choix;
         do{
             choix=Utilitaire.choixListe(langues);

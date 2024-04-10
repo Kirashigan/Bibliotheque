@@ -1,10 +1,8 @@
 package bibliotheque.metier;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+
+import static bibliotheque.gestion.GestionOld.LOCATIONS;
 
 public class Exemplaire {
 
@@ -88,6 +86,18 @@ public class Exemplaire {
        setDescriptionEtat(etat);
     }
 
+    public Lecteur lecteurActuel(){
+        if(enLocation()) return LOCATIONS.get(this);
+        return null;
+    }
+
+    public void envoiMailLecteurActuel(Mail mail){
+        if(lecteurActuel()!=null) System.out.println("envoi de "+mail+ " à "+lecteurActuel().getMail());
+        else System.out.println("aucune location en cours");
+    }
 
 
+    public boolean enLocation(){
+        return LOCATIONS.get(this) !=null ;
+    }
 }

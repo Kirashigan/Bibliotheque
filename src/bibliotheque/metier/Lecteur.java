@@ -2,7 +2,6 @@ package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -81,9 +80,7 @@ public class Lecteur {
         this.tel = tel;
     }
 
-
-
-    @Override
+        @Override
     public String toString() {
         return "Lecteur{" +
                 "numlecteur=" + numlecteur +
@@ -108,16 +105,5 @@ public class Lecteur {
     public int hashCode() {
         return Objects.hash(numlecteur);
     }
-
-    public List<Exemplaire> listerExemplairesEnLocation(){
-        List<Exemplaire> lex = new ArrayList<>();
-        for(Exemplaire e : lex){
-            if((e.getOuvrage().lex.contains(e.getOuvrage().getTitre()))){
-                break;
-            }
-        }
-        return lex;
-    }
-
 
 }
