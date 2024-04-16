@@ -1,6 +1,6 @@
 package bibliotheque.mvc.view;
 
-import bibliotheque.metier.Exemplaire;
+import bibliotheque.metier.Lecteur;
 import bibliotheque.metier.Ouvrage;
 import bibliotheque.metier.TypeLivre;
 
@@ -12,13 +12,13 @@ import java.util.Scanner;
 import static bibliotheque.utilitaires.Utilitaire.*;
 
 
-public class ExemplaireViewConsole extends AbstractViewExemplaire {
+public class LecteurViewConsole extends AbstractViewLecteur {
     Scanner sc = new Scanner(System.in);
 
 
     @Override
     public void menu() {
-        update(exemplaireController.getAll());
+        update(lecteurController.getAll());
         List options = Arrays.asList("ajouter", "retirer", "rechercher","modifier","fin");
         do {
             int ch = choixListe(options);
@@ -44,8 +44,8 @@ public class ExemplaireViewConsole extends AbstractViewExemplaire {
 
     private void retirer() {
         int nl = choixElt(le)-1;
-        Exemplaire a = le.get(nl);
-        boolean ok = exemplaireController.remove(a);
+        Lecteur a = le.get(nl);
+        boolean ok = LecteurController.remove(a);
         if(ok) affMsg("client effacé");
         else affMsg("client non effacé");
     }
@@ -57,15 +57,13 @@ public class ExemplaireViewConsole extends AbstractViewExemplaire {
 
     public void rechercher() {
         try {
-            System.out.println("matricule ");
+            System.out.println("Nom ");
             String nom = sc.nextLine();
-            System.out.println("Descritpion ");
+            System.out.println("Prenom ");
             String prenom = sc.nextLine();
-            System.out.println("titre de l'ouvrage: ");
-            String n = sc.next();
-            Exemplaire rech = new Exemplaire(nom, prenom, n);
-            Exemplaire a = exemplaireController.search(rech);
-            if(a==null) affMsg("Exemplaire inconnu");
+            Lecteur rech = new Lecteur(nom, prenom);
+            Lecteur a = LecteurController.search(rech);
+            if(a==null) affMsg("Lecteur inconnu");
             else {
                 affMsg(a.toString());
                 special(a);
@@ -78,42 +76,40 @@ public class ExemplaireViewConsole extends AbstractViewExemplaire {
 
     public void modifier() {
         int choix = choixElt(le);
-        Exemplaire a = le.get(choix-1);
+        Lecteur a = le.get(choix-1);
         do {
             try {
-                String nom = modifyIfNotBlank("Matricule: ", a.getMatricule());
-                String prenom = modifyIfNotBlank("Description Etat: ", a.getDescriptionEtat());
-                a.setMatricule(nom);
-                a.setDescriptionEtat(prenom);
+                String nom = modifyIfNotBlank("Nom: ", a.getNom());
+                String prenom = modifyIfNotBlank("Prenom: ", a.getPrenom());
+                a.setNom(nom);
+                a.setPrenom(prenom);
                 break;
             } catch (Exception e) {
                 System.out.println("erreur :" + e);
             }
         }while(true);
-        exemplaireController.update(a);
+        LecteurController.update(a);
     }
 
 
     public void ajouter() {
-        Exemplaire a;
+        Lecteur a;
         do {
             try {
                 System.out.println("nom ");
                 String nom = sc.nextLine();
                 System.out.println("prénom ");
                 String prenom = sc.nextLine();
-                System.out.println("nationalité");
-                String nat = sc.nextLine();
-                a = new Exemplaire(nom, prenom, nat);
+                a = new Lecteur(nom, prenom);
                 break;
             } catch (Exception e) {
                 System.out.println("une erreur est survenue : "+e.getMessage());
             }
         }while(true);
-        exemplaireController.add(a);
+        LecteurController.add(a);
     }
 
-    public void special(Exemplaire a) {
+    public void special(Lecteur a) {
 
         List options = Arrays.asList("lister ouvrages", "lister livres", "lister par genre","fin");
         do {
@@ -137,23 +133,23 @@ public class ExemplaireViewConsole extends AbstractViewExemplaire {
     }
 
 
-    public void listerGenre(Exemplaire a) {
+    public void listerGenre(Lecteur a) {
         System.out.println("genre :");
         String genre = sc.nextLine();
-        affListe(new ArrayList(exemplaireController.listerOuvrages(a,genre)));
+        affListe(new ArrayList(LecteurController.listerOuvrages(a,genre)));
     }
 
 
-    public void listerOuvrages(Exemplaire a){
-        affList(new ArrayList(exemplaireController.listerOuvrages(a)));
+    public void listerOuvrages(Lecteur a){
+        affList(new ArrayList(LecteurController.listerOuvrages(a)));
     }
 
 
-    public void listerLivres(Exemplaire a){
+    public void listerLivres(Lecteur a){
         TypeLivre[] tlv = TypeLivre.values();
         int ch2 = choixListe(List.of(tlv));
         TypeLivre tl = tlv[ch2-1];
-        affList(new ArrayList(exemplaireController.listerLivre(a,tl)));
+        affList(new ArrayList(LecteurController.listerLivre(a,tl)));
     }
 
     @Override

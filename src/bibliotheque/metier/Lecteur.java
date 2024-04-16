@@ -13,6 +13,10 @@ public class Lecteur {
     private String mail;
     private String tel;
 
+    public Lecteur(String nom, String prenom) {
+        this.nom = nom;
+        this.prenom = prenom;
+    }
 
     public Lecteur(int numlecteur, String nom, String prenom, LocalDate dn, String adresse, String mail, String tel) {
         this.numlecteur = numlecteur;

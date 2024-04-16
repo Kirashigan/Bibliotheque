@@ -19,6 +19,10 @@ public abstract class Ouvrage {
 
     protected Set<Exemplaire> lex = new HashSet<>();
 
+    public Ouvrage(String titre){
+        this.titre=titre;
+    }
+
 
     public Ouvrage(String titre, int ageMin, LocalDate dateParution, TypeOuvrage to, double prixLocation, String langue, String genre) {
         this.titre = titre;

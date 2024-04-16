@@ -37,11 +37,6 @@ public class Rayon {
                 ", genre='" + genre + '\'' +
                 '}';
     }
-    public void addExemplaire(Exemplaire e){
-        lex.add(e);
-        e.setRayon(this);
-    }
-
     public void remove(Exemplaire e){
         lex.remove(e);
         e.setRayon(null);
