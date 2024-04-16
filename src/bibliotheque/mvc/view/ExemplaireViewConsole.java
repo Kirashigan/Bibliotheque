@@ -11,13 +11,13 @@ import java.util.Scanner;
 import static bibliotheque.utilitaires.Utilitaire.*;
 
 
-public class ExemplaireViewConsole extends Exemplaire {
+public class ExemplaireViewConsole extends AbstractViewExemplaire {
     Scanner sc = new Scanner(System.in);
 
 
     @Override
     public void menu() {
-        update(ExemplaireController.getAll());
+        update(exemplaireController.getAll());
         List options = Arrays.asList("ajouter", "retirer", "rechercher","modifier","fin");
         do {
             int ch = choixListe(options);
@@ -44,7 +44,7 @@ public class ExemplaireViewConsole extends Exemplaire {
     private void retirer() {
         int nl = choixElt(le)-1;
         Exemplaire a = le.get(nl);
-        boolean ok = ExemplaireController.remove(a);
+        boolean ok = exemplaireController.remove(a);
         if(ok) affMsg("client effacé");
         else affMsg("client non effacé");
     }
@@ -56,14 +56,14 @@ public class ExemplaireViewConsole extends Exemplaire {
 
     public void rechercher() {
         try {
-            System.out.println("nom ");
+            System.out.println("matricule ");
             String nom = sc.nextLine();
-            System.out.println("prénom ");
+            System.out.println("Descritpion ");
             String prenom = sc.nextLine();
-            System.out.println("nationalité");
+            System.out.println(" ");
             String nat = sc.nextLine();
             Exemplaire rech = new Exemplaire(nom, prenom, nat);
-            Exemplaire a = ExemplaireController.search(rech);
+            Exemplaire a = exemplaireController.search(rech);
             if(a==null) affMsg("Exemplaire inconnu");
             else {
                 affMsg(a.toString());
@@ -75,24 +75,21 @@ public class ExemplaireViewConsole extends Exemplaire {
 
     }
 
-//TODO Modofier les informations internet pour matcher avec les valeurs d'exemplaire
     public void modifier() {
         int choix = choixElt(la);
         Exemplaire a = la.get(choix-1);
         do {
             try {
-                String nom = modifyIfNotBlank("nom", a.getNom());
-                String prenom = modifyIfNotBlank("prénom", a.getPrenom());
-                String nat = modifyIfNotBlank("nationalité", a.getNationalite());
-                a.setNom(nom);
-                a.setPrenom(prenom);
-                a.setNationalite(nat);
+                String nom = modifyIfNotBlank("Matricule: ", a.getMatricule());
+                String prenom = modifyIfNotBlank("Description Etat: ", a.getDescriptionEtat());
+                a.setMatricule(nom);
+                a.setDescriptionEtat(prenom);
                 break;
             } catch (Exception e) {
                 System.out.println("erreur :" + e);
             }
         }while(true);
-        ExemplaireController.update(a);
+        exemplaireController.update(a);
     }
 
 
@@ -112,7 +109,7 @@ public class ExemplaireViewConsole extends Exemplaire {
                 System.out.println("une erreur est survenue : "+e.getMessage());
             }
         }while(true);
-        ExemplaireController.add(a);
+        exemplaireController.add(a);
     }
 
     public void special(Exemplaire a) {
@@ -142,12 +139,12 @@ public class ExemplaireViewConsole extends Exemplaire {
     public void listerGenre(Exemplaire a) {
         System.out.println("genre :");
         String genre = sc.nextLine();
-        affListe(new ArrayList(ExemplaireController.listerOuvrages(a,genre)));
+        affListe(new ArrayList(exemplaireController.listerOuvrages(a,genre)));
     }
 
 
     public void listerOuvrages(Exemplaire a){
-        affList(new ArrayList(ExemplaireController.listerOuvrages(a)));
+        affList(new ArrayList(exemplaireController.listerOuvrages(a)));
     }
 
 
@@ -155,7 +152,7 @@ public class ExemplaireViewConsole extends Exemplaire {
         TypeLivre[] tlv = TypeLivre.values();
         int ch2 = choixListe(List.of(tlv));
         TypeLivre tl = tlv[ch2-1];
-        affList(new ArrayList(ExemplaireController.listerLivre(a,tl)));
+        affList(new ArrayList(exemplaireController.listerLivre(a,tl)));
     }
 
     @Override

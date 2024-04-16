@@ -3,7 +3,6 @@ package bibliotheque.mvc.controller;
 import bibliotheque.metier.*;
 import bibliotheque.mvc.model.DAOExemplaire;
 import bibliotheque.mvc.view.AbstractViewExemplaire;
-import bibliotheque.mvc.view.AbstractViewExemplaire;
 
 import java.util.List;
 import java.util.Set;

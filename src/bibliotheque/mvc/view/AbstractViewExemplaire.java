@@ -1,8 +1,7 @@
 package bibliotheque.mvc.view;
 
-import bibliotheque.metier.Auteur;
 import bibliotheque.metier.Exemplaire;
-import bibliotheque.mvc.controller.AuteurController;
+import bibliotheque.mvc.controller.ExemplaireController;
 import bibliotheque.mvc.observer.Observer;
 
 import java.util.List;
@@ -13,7 +12,7 @@ public abstract  class AbstractViewExemplaire implements Observer {
     protected ExemplaireController exemplaireController;
     protected List<Exemplaire> le;
 
-    public void setController(AuteurController auteurController) {
+    public void setController(ExemplaireController auteurController) {
         this.exemplaireController = exemplaireController;
     }
 
