@@ -5,7 +5,7 @@ import bibliotheque.metier.Lecteur;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelLecteur extends DAOLecteur {
+public class ModelLecteur extends DAO<Lecteur> {
     private List<Lecteur> ldatas = new ArrayList<>();
 
 

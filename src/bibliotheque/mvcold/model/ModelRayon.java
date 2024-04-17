@@ -6,7 +6,7 @@ import bibliotheque.metier.Rayon;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ModelRayon extends DAORayon {
+public abstract class ModelRayon extends DAO<Rayon> implements DAOSpecialRayon{
 
     private List<Rayon> ldatas = new ArrayList<>();
 
