@@ -1,5 +1,7 @@
 package bibliotheque.metier;
 
+import bibliotheque.mvc.controller.MailController;
+
 public class Mail {
     private String objet;
     private String message;
@@ -43,4 +45,5 @@ public class Mail {
                 ", dateEnvoi='" + dateEnvoi + '\'' +
                 '}';
     }
+
 }

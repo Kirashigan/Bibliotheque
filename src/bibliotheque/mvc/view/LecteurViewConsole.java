@@ -18,7 +18,7 @@ public class LecteurViewConsole extends AbstractViewLecteur {
 
     @Override
     public void menu() {
-        update(lecteurController.getAll());
+        update(LecteurController.getAll());
         List options = Arrays.asList("ajouter", "retirer", "rechercher","modifier","fin");
         do {
             int ch = choixListe(options);
