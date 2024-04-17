@@ -1,5 +1,6 @@
 package bibliotheque.mvcold.model;
 
+import bibliotheque.metier.Lecteur;
 import bibliotheque.mvc.observer.Subject;
 
 import java.util.List;

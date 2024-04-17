@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 
-public class AuteurController extends Controller<Auteur> {
+public class AuteurController extends Controller<Auteur> implements ControllerSpecialAuteur {
 
     public AuteurController(DAO<Auteur> model, AbstractView<Auteur> view) {
         super(model,view);

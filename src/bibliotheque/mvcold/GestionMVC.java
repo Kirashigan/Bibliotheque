@@ -1,8 +1,10 @@
     package bibliotheque.mvcold;
 
     import bibliotheque.metier.Auteur;
-    import bibliotheque.mvcold.model.DAOAuteur;
+    import bibliotheque.mvcold.controller.Controller;
+    import bibliotheque.mvcold.model.DAO;
     import bibliotheque.mvcold.model.ModelAuteur;
+    import bibliotheque.mvcold.view.AbstractView;
     import bibliotheque.mvcold.view.AbstractViewAuteur;
     import bibliotheque.mvcold.view.AuteurViewConsole;
     import bibliotheque.utilitaires.Utilitaire;
@@ -13,21 +15,16 @@
     import java.util.List;
 
     public class GestionMVC {
-        private DAOAuteur am;
-        private AbstractViewAuteur av;
-        private AuteurController ac;
+        private DAO<Auteur> am;
+        private AbstractView<Auteur> av;
+        private Controller<Auteur> ac;
 
 
         public void gestion(){
 
-            am = new ModelAuteur() {
-                @Override
-                public Auteur add(Auteur elt) {
-                    return super.add(elt);
-                }
-            };
+            am = new ModelAuteur() ;
             av = new AuteurViewConsole();
-            ac = new AuteurController(am,av);//création et injection de dépendance
+            ac = new Controller<>(am,av);//création et injection de dépendance
             am.addObserver(av);
 
     try {

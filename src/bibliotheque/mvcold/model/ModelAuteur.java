@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public abstract class ModelAuteur extends DAO<Auteur> implements DAOSpecialAuteur {
+public  class ModelAuteur extends DAO<Auteur> implements DAOSpecialAuteur {
 
     private List<Auteur> ldatas = new ArrayList<>();
 
