@@ -13,9 +13,16 @@ public class Lecteur {
     private String mail;
     private String tel;
 
-    public Lecteur(String nom, String prenom) {
+    private static int numact=1;
+
+    public Lecteur( String nom, String prenom, LocalDate dn, String adresse, String mail, String tel) {
+        this.numlecteur = numact++;
         this.nom = nom;
         this.prenom = prenom;
+        this.dn = dn;
+        this.adresse = adresse;
+        this.mail = mail;
+        this.tel = tel;
     }
 
     public Lecteur(int numlecteur, String nom, String prenom, LocalDate dn, String adresse, String mail, String tel) {

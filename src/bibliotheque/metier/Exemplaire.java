@@ -15,14 +15,6 @@ public class Exemplaire {
     private String etat;
 
 
-    public Exemplaire(String matricule, String descriptionEtat, String titre){
-        this.matricule = matricule;
-        this.descriptionEtat=descriptionEtat;
-        this.ouvrage.titre = titre;
-
-        this.ouvrage.getLex().add(this);
-    }
-
     public Exemplaire(String matricule, String descriptionEtat,Ouvrage ouvrage){
         this.matricule = matricule;
         this.descriptionEtat=descriptionEtat;
