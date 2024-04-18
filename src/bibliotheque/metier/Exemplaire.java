@@ -2,7 +2,7 @@ package bibliotheque.metier;
 
 import java.util.Objects;
 
-import static bibliotheque.gestion.GestionOld.LOCATIONS;
+import static bibliotheque.mvc.GestionMVC.LOCATIONS;
 
 public class Exemplaire {
 
@@ -19,8 +19,7 @@ public class Exemplaire {
         this.matricule = matricule;
         this.descriptionEtat=descriptionEtat;
         this.ouvrage = ouvrage;
-
-        this.ouvrage.getLex().add(this);
+        if(ouvrage!=null) this.ouvrage.getLex().add(this);
     }
 
     @Override

@@ -1,13 +1,10 @@
 package bibliotheque.mvc.model;
 
-
-import bibliotheque.mvc.observer.Subject;
+import bibliotheque.mvcbeta.observer.Subject;
 
 import java.util.List;
 
-
 public abstract class DAO<T> extends Subject {
-
 
     public abstract T add( T elt) ;
 
@@ -22,5 +19,4 @@ public abstract class DAO<T> extends Subject {
     public List<T> getNotification(){
         return getAll();
     }
-
 }

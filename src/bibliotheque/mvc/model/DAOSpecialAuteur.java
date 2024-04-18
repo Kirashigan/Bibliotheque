@@ -14,6 +14,5 @@ public interface DAOSpecialAuteur {
 
     public List<Livre> listerLivre(Auteur a, TypeLivre tl);
 
-
-    public List<Ouvrage> listerOuvrages(Auteur a, String genre) ;
+    public List<Ouvrage> listerOuvrages(Auteur a, String genre);
 }
