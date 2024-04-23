@@ -1,6 +1,7 @@
 package bibliotheque.gestion;
 
 import bibliotheque.metier.*;
+import bibliotheque.mvc.GestionMVC;
 import bibliotheque.utilitaires.*;
 import bibliotheque.utilitaires.comparators.*;
 
@@ -99,7 +100,25 @@ public class GestionOld {
     private void gestRestitution() {
         //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
     //Méthode dans HashMap pour retourner les clés
-
+        List<Lecteur> lecteurList = GestionMVC.lv.getAll();
+        List<Exemplaire> exemplaires = GestionMVC.ev.getAll();
+        for(Exemplaire e : exemplaires){
+            if(e.enLocation()){
+                System.out.println("\nMatricule: "+e.getMatricule()+" Nom lecteur: "+e.lecteurActuel().getNom());
+            }
+        }
+        System.out.println("Entrez le matricule du livre loué: ");
+        String matricule = sc.nextLine();
+        do {
+            if(exemplaires.contains(matricule)){
+                break;
+            }else {
+                System.out.println("Entrez le matricule du livre loué: ");
+                matricule = sc.nextLine();
+            }
+        }while(true);
+        LOCATIONS.remove(matricule);
+        System.out.println("L'exemplaire n'est plus loué");
     }
 
     private void gestLocations() {
