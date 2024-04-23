@@ -1,5 +1,6 @@
 package bibliotheque.mvc.view;
 
+import bibliotheque.metier.Auteur;
 import bibliotheque.metier.Exemplaire;
 import bibliotheque.metier.Ouvrage;
 import bibliotheque.metier.TypeOuvrage;
@@ -7,10 +8,7 @@ import bibliotheque.mvc.GestionMVC;
 import bibliotheque.mvc.controller.ControllerSpecialOuvrage;
 import bibliotheque.utilitaires.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static bibliotheque.utilitaires.Utilitaire.*;
 
@@ -59,7 +57,7 @@ public class OuvrageViewConsole extends AbstractView<Ouvrage> {
 
 
     public void rechercher() {
-        List<Ouvrage> ouvragelist = GestionMVC.ov.getAll()
+        List<Ouvrage> ouvragelist = GestionMVC.ov.getAll();
         int i = 1,choix;
         for(TypeOuvrage typeOuvrage : TypeOuvrage.values()){
             System.out.println(i+": "+typeOuvrage);
@@ -100,15 +98,26 @@ public class OuvrageViewConsole extends AbstractView<Ouvrage> {
 
 
     public void ajouter() {
+        int i=1;
+        List<Auteur> auteurList = GestionMVC.av.getAll();
+        List<String> auteurTrier=new ArrayList<>();
+        Auteur aut = null;
         TypeOuvrage[] tto = TypeOuvrage.values();
         List<TypeOuvrage> lto = new ArrayList<>(Arrays.asList(tto));
         int choix = Utilitaire.choixListe(lto);
         Ouvrage a = null;
         List<OuvrageFactory> lof = new ArrayList<>(Arrays.asList(new LivreFactory(),new CDFactory(),new DVDFactory()));
         a = lof.get(choix-1).create();
-        //TODO affecter un ou plusieurs auteurs
-        //TODO trier les auteurs présentés par ordre de nom et prénom  ==>  classe anonyme
-        //TODO ne pas présenter les auteurs déjà enregistrés pour cet ouvrage
+
+        for(Auteur au : auteurList){
+            auteurTrier.add(au.getNom());
+        }
+        Collections.sort(auteurTrier);
+        System.out.println(auteurTrier);
+        System.out.println("Entrez le nom de l'auteur que vous voulez ajouter : ");
+        String s = sc.next();
+        aut.setNom(s);
+        a.addAuteur(aut);
         controller.add(a);
     }
 
