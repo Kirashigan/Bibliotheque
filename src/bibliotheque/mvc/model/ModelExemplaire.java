@@ -63,7 +63,6 @@ public class ModelExemplaire extends DAO<Exemplaire> implements DAOSpecialExempl
 
     @Override
     public void envoiMailLecteurActuel(Exemplaire ex,Mail m) {
-
         ex.envoiMailLecteurActuel(m);
     }
     @Override

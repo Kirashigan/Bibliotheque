@@ -3,6 +3,7 @@ package bibliotheque.mvc.view;
 import bibliotheque.metier.Exemplaire;
 import bibliotheque.metier.Ouvrage;
 import bibliotheque.metier.TypeOuvrage;
+import bibliotheque.mvc.GestionMVC;
 import bibliotheque.mvc.controller.ControllerSpecialOuvrage;
 import bibliotheque.utilitaires.*;
 
@@ -58,7 +59,27 @@ public class OuvrageViewConsole extends AbstractView<Ouvrage> {
 
 
     public void rechercher() {
-        //TODO rechercher ouvrage en demandant type d'ouvrage, puis l'info unique relative à au type recherché
+        List<Ouvrage> ouvragelist = GestionMVC.ov.getAll()
+        int i = 1,choix;
+        for(TypeOuvrage typeOuvrage : TypeOuvrage.values()){
+            System.out.println(i+": "+typeOuvrage);
+            i++;
+        }
+        System.out.println("Entrez le chiffre devant le type de l'ouvrage que vous voulez: ");
+        choix = sc.nextInt();
+        do {
+            if(choix>i-1||choix <0){
+                System.out.println("Entrez un chiffre comprit entre 0 et i: ");
+                choix = sc.nextInt();
+            }else break;
+        }while(true);
+        for (Ouvrage o : ouvragelist){
+            if (o.getTo().equals(TypeOuvrage.values()[choix-1])){
+                //Ici j'ai tous les ouvrages qui sont du meme type que mon choix au dessus (DCD,CD,...)
+                //Je ne comprends pas ce qu'on entend par info unique
+                System.out.println(o.getTitre()); //Me permet d'avoir tt les Exemplaires d'un certains genre
+            }
+        }
     }
 
 

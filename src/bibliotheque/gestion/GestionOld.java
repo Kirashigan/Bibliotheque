@@ -4,6 +4,7 @@ import bibliotheque.metier.*;
 import bibliotheque.utilitaires.*;
 import bibliotheque.utilitaires.comparators.*;
 
+import javax.xml.stream.Location;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
@@ -97,6 +98,8 @@ public class GestionOld {
 
     private void gestRestitution() {
         //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+    //Méthode dans HashMap pour retourner les clés
+
     }
 
     private void gestLocations() {
